@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "drf_spectacular",
     "rest_framework",
     "categories",
+    "products"
 ]
 
 MIDDLEWARE = [
