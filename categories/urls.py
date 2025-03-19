@@ -7,6 +7,4 @@ router = DefaultRouter()
 router.register('categories', CategoryViewSet)
 
 
-urlpatterns = [
-    # path("categories/", ListCategoryView.as_view(), name="categories"),
-] + router.urls
+urlpatterns = router.urls
