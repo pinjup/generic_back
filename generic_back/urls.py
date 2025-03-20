@@ -17,10 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from generic_back.views import AdminOnlyObtainAuthToken
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("docs.urls")),
     path("api/", include("categories.urls")),
     path("api/", include("products.urls")),
+    path('api-token-auth/', AdminOnlyObtainAuthToken.as_view(), name='api_token_auth'),
 ]
