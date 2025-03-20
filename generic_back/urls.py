@@ -24,5 +24,6 @@ urlpatterns = [
     path("", include("docs.urls")),
     path("api/", include("categories.urls")),
     path("api/", include("products.urls")),
+    path("api/", include("accounts.urls")),
     path('api-token-auth/', AdminOnlyObtainAuthToken.as_view(), name='api_token_auth'),
 ]
