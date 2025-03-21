@@ -22,8 +22,9 @@ from generic_back.views import AdminOnlyObtainAuthToken
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("docs.urls")),
+    path("api/", include("accounts.urls")),
     path("api/", include("categories.urls")),
     path("api/", include("products.urls")),
-    path("api/", include("accounts.urls")),
+    path("api/", include("cart.urls")),
     path('api-token-auth/', AdminOnlyObtainAuthToken.as_view(), name='api_token_auth'),
 ]
