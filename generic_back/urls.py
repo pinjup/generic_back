@@ -17,7 +17,6 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
-from generic_back.views import AdminOnlyObtainAuthToken
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -26,5 +25,4 @@ urlpatterns = [
     path("api/", include("categories.urls")),
     path("api/", include("products.urls")),
     path("api/", include("cart.urls")),
-    path('api-token-auth/', AdminOnlyObtainAuthToken.as_view(), name='api_token_auth'),
 ]
