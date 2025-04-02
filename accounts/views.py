@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from rest_framework import status
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication
 from rest_framework.generics import CreateAPIView, ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
@@ -51,6 +51,8 @@ class LoginAPIView(APIView):
             )
 
 class LogoutAPIView(APIView):
+    authentication_classes = [SessionAuthentication]
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         logout(request)
         return Response(
