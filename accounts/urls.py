@@ -6,6 +6,8 @@ from accounts.views import (
     UserProfileDetailView,
     UserRegistrationView,
     LogoutAPIView,
+    SizeListView,
+    SizeDetailView,
 )
 
 urlpatterns = [
@@ -15,4 +17,6 @@ urlpatterns = [
     path("logout/", LogoutAPIView.as_view(), name="logout"),
     path("profiles/", UserProfileListView.as_view(), name="profile-list"),
     path("profile/", UserProfileDetailView.as_view(), name="profile-detail"),
+    path("sizes/", SizeListView.as_view(), name="size-list"),
+    path("sizes/<int:pk>/", SizeDetailView.as_view(), name="size-detail"),
 ]

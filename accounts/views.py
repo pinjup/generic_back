@@ -1,16 +1,23 @@
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from rest_framework import status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveUpdateAPIView
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.generics import (
+    CreateAPIView,
+    ListAPIView,
+    RetrieveUpdateAPIView,
+    ListCreateAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from accounts.permissions import IsAdminUser
-from accounts.models import UserProfile
+from accounts.models import UserProfile, Size
 from accounts.serializers import (
     UserRegistrationSerializer,
     UserListSerializer,
     UserProfileSerializer,
+    SizeSerializer,
 )
 
 User = get_user_model()
@@ -76,3 +83,33 @@ class UserProfileDetailView(RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user.profile
+
+
+class SizeListView(ListCreateAPIView):
+    queryset = Size.objects.all()
+    serializer_class = SizeSerializer
+
+    def get_authentication_classes(self):
+        if self.request.method == "POST":
+            return [TokenAuthentication]
+        return []
+
+    def get_permissions(self):
+        if self.request.method == "POST":
+            return [IsAdminUser()]
+        return [AllowAny()]
+
+
+class SizeDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = Size.objects.all()
+    serializer_class = SizeSerializer
+
+    def get_authentication_classes(self):
+        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+            return [TokenAuthentication]
+        return []
+
+    def get_permissions(self):
+        if self.request.method in ["PUT", "PATCH", "DELETE"]:
+            return [IsAdminUser()]
+        return [AllowAny()]
