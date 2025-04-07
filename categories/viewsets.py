@@ -6,6 +6,7 @@ from categories.models import Category
 from products.models import Product
 from categories.serializers import CategorySerializer
 from products.serializers import ProductSerializer
+from accounts.permissions import IsAdminUser
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -16,7 +17,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         if self.request.method in ["GET", "HEAD", "OPTIONS"]:
             permission_classes = [AllowAny]
         else:
-            permission_classes = [IsAuthenticated]
+            permission_classes = [IsAuthenticated, IsAdminUser]
         return [permission() for permission in permission_classes]
 
     @action(["GET", "POST"], detail=True, serializer_class=ProductSerializer)
